@@ -1,11 +1,15 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
-import Home from './components/pages/Home'
-import Contact from './components/pages/Contact'
-import Company from './components/pages/Company'
-import NewProject from './components/pages/NewProject'
+// import pages
+import Home from './components/pages/Home/Home'
+import Contact from './components/pages/Contact/Contact'
+import Company from './components/pages/Company/Company'
+import NewProject from './components/pages/NewProject/NewProject'
+import Projects from './components/pages/Projetos/Projects'
 
-import Container from './components/layout/Container'
+//import layout
+import Container from './components/layout/Containeer/Container'
+import Navbar from './components/layout/Navbar/Navbar'
+import Footer from './components/layout/Footer/Footer'
 
 function App() {
   return (
@@ -15,6 +19,9 @@ function App() {
         <Container customClass="min-height">
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/projects">
+            <Projects />
           </Route>
           <Route path="/company">
             <Company />
@@ -27,7 +34,7 @@ function App() {
           </Route>
         </Container>
       </Switch>
-      <p>footer</p>
+      <Footer />
     </Router>
   );
 }
