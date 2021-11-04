@@ -12,11 +12,11 @@
       "id": 3
     },
     {
-      "name": "Novo projeto",
-      "budget": "4000",
+      "name": "criar site responsivo",
+      "budget": "6500",
       "category": {
-        "id": "1",
-        "name": "Infra"
+        "id": "3",
+        "name": "Design"
       },
       "cost": 0,
       "services": [],

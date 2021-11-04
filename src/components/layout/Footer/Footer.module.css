@@ -24,6 +24,11 @@
   cursor: pointer;
 }
 
+.social_list a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .copy_right {
   margin-top: 2em;
 }
