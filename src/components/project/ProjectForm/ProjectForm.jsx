@@ -5,7 +5,7 @@ import Input from '../../../Form/Input/Input'
 import Select from '../../../Form/Select/Select'
 import SubmitButton from '../../../Form/SubmitButton/SubmitButton'
 
-export default function ProjectForm({ handleSubmit, btnText, projectData }) {
+export default function ProjectForm({ handleSubmit, textBtn, projectData }) {
   const [categories, setCategories] = useState([])
   const [project, setProject] = useState(projectData || {})
 
@@ -66,7 +66,7 @@ export default function ProjectForm({ handleSubmit, btnText, projectData }) {
           handleOnChange={handleCategory}
           value={project.category ? project.category.id : ''}
         />
-        <SubmitButton text={btnText} />
+        <SubmitButton text={textBtn} />
     </form>
   )
 }

@@ -13,13 +13,32 @@
     },
     {
       "name": "criar site responsivo",
-      "budget": "6500",
+      "budget": "7000",
       "category": {
         "id": "3",
         "name": "Design"
       },
-      "cost": 0,
-      "services": [],
+      "cost": 600,
+      "services": [
+        {
+          "name": "meu novo serviço",
+          "cost": "100",
+          "description": "faz isso aqui",
+          "id": "954c923c-74b7-4544-aab7-b59d0618e1ed"
+        },
+        {
+          "name": "meu novo serviço",
+          "cost": "100",
+          "description": "faz isso aqui",
+          "id": "954c923c-74b7-4544-aab7-b59d0618e1ed"
+        },
+        {
+          "name": "novo serviço",
+          "cost": "400",
+          "description": "contratar programado para o site",
+          "id": "5b1b03e7-a6be-48b4-9d8c-781b5f2d3bea"
+        }
+      ],
       "id": 4
     }
   ],

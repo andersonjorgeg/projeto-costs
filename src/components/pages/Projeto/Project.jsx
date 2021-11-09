@@ -1,7 +1,10 @@
+import {parse, v4 as uuidv4} from 'uuid' 
+
 import styles from './Project.module.css'
 import Loading from '../../layout/Loading/Loading'
 import Container from '../../layout/Containeer/Container'
 import ProjectForm from '../../project/ProjectForm/ProjectForm'
+import ServiceForm from '../../service/ServiceForm/ServiceForm'
 import Message from '../../layout/Message/Message'
 
 import { useParams } from 'react-router-dom'
@@ -12,7 +15,7 @@ export default function Project() {
   const { id } = useParams()
   const [project, setProject] = useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
-  const [showServiceForm, setServiceForm] = useState(false)
+  const [showServiceForm, setShowServiceForm] = useState(false)
   const [message, setMessage] = useState('')
   const [type, setType] = useState('')
 
@@ -32,14 +35,6 @@ export default function Project() {
     }, 300)
 
   }, [id])
-
-  function toggleProjectForm() {
-    setShowProjectForm(!showProjectForm)
-  }
-
-  function toggleServiceForm() {
-    setServiceForm(!showServiceForm)
-  }
 
   function editPost(project) {
     setMessage('')
@@ -68,6 +63,55 @@ export default function Project() {
       .catch(err => console.log(err))
   }
 
+  function createService(project) {
+    setMessage('')
+    //pegando ultimo serviço
+    const lastService = project.services[project.services.length - 1]
+
+    //gerando id do serviço
+    lastService.id = uuidv4()
+
+    //pegando o custo do ultimo serviço
+    const lastServiceCost = lastService.cost
+
+    //pegando o custo do novo serviço
+    const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+
+    //maximum value validation
+    if(newCost > parseFloat(project.budget)) {
+      setMessage('Orçamento ultrapassado, verifique o valor do serviço')
+      setType('error')
+      project.services.pop()
+      return false
+    }
+
+    //add service cost to project total cost
+    project.cost = newCost
+
+    //update project
+    fetch(`http://localhost:5000/projects/${project.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project)
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        setShowServiceForm(false)
+      })
+      .catch(err => console.log(err))
+  }
+
+  function toggleProjectForm() {
+    setShowProjectForm(!showProjectForm)
+  }
+
+  function toggleServiceForm() {
+    setShowServiceForm(!showServiceForm)
+  }
+
   return (
     <>
       {project.name ? (
@@ -93,7 +137,7 @@ export default function Project() {
                 </div>
               ) : (
                 <div className={styles.project_info}>
-                  <ProjectForm  handleSubmit={editPost} btnText="Concluir edição" projectData={project} />
+                  <ProjectForm  handleSubmit={editPost} textBtn="Concluir edição" projectData={project} />
                 </div>
               )}
             </div>
@@ -103,7 +147,11 @@ export default function Project() {
                 {!showServiceForm ? 'Adicionar serviço' : 'Fechar'}
               </button>
               <div className={styles.project_info}>
-                {showServiceForm && (<div>Formulários de serviços</div>)}
+                {showServiceForm && <ServiceForm 
+                    handleSubmit={createService}
+                    textBtn="Adicionar Serviço" 
+                    projectData={project}
+                  />}
               </div>
             </div>
             <h2>Serviços</h2>
