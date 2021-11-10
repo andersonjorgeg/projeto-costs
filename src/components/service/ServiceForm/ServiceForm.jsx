@@ -3,7 +3,7 @@ import Input from '../../../Form/Input/Input';
 import SubmitButton from '../../../Form/SubmitButton/SubmitButton';
 import styles from '../../project/ProjectForm/ProjectForm.module.css';
 
-export default function ServiceForm({ handleSubmit, textBtn, projectData }){
+export default function ServiceForm({ handleSubmit, btnText, projectData }){
 
   const [service, setService] = useState({})
 
@@ -42,7 +42,7 @@ export default function ServiceForm({ handleSubmit, textBtn, projectData }){
         placeholder="Descreva o serviço"
         handleOnChange={handleChange}
       /> 
-      <SubmitButton text={textBtn} />
+      <SubmitButton text={btnText} />
     </form>
   )
 }

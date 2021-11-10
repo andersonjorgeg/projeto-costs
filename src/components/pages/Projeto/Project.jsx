@@ -1,4 +1,4 @@
-import {parse, v4 as uuidv4} from 'uuid' 
+import {v4 as uuidv4} from 'uuid' 
 
 import styles from './Project.module.css'
 
@@ -83,6 +83,7 @@ export default function Project() {
 
     //maximum value validation
     if(newCost > parseFloat(project.budget)) {
+      setShowServiceForm(false)
       setMessage('Orçamento ultrapassado, verifique o valor do serviço')
       setType('error')
       project.services.pop()
@@ -110,6 +111,7 @@ export default function Project() {
   }
 
   function removeService(id, cost) {
+    setMessage('')
 
     //atualização dos Serviços
     const servicesUpdated = project.services.filter(
@@ -139,10 +141,12 @@ export default function Project() {
   }
 
   function toggleProjectForm() {
+    setMessage('')
     setShowProjectForm(!showProjectForm)
   }
 
   function toggleServiceForm() {
+    setMessage('')
     setShowServiceForm(!showServiceForm)
   }
 
@@ -168,10 +172,13 @@ export default function Project() {
                   <p>
                     <span>Total Utilizado:</span> R${project.cost}
                   </p>
+                  <p>
+                    <span>Saldo atual:</span> R${project.budget - project.cost}
+                  </p>
                 </div>
               ) : (
                 <div className={styles.project_info}>
-                  <ProjectForm  handleSubmit={editPost} textBtn="Concluir edição" projectData={project} />
+                  <ProjectForm  handleSubmit={editPost} btnText="Concluir edição" projectData={project} />
                 </div>
               )}
             </div>
@@ -183,13 +190,14 @@ export default function Project() {
               <div className={styles.project_info}>
                 {showServiceForm && <ServiceForm 
                     handleSubmit={createService}
-                    textBtn="Adicionar Serviço" 
+                    btnText="Adicionar Serviço" 
                     projectData={project}
                   />}
               </div>
             </div>
             <h2>Serviços</h2>
             <Container customClass="start">
+            {message && <Message type={type} msg={message} />}
                 {services.length > 0 &&
                   services.map((service) => (
                     <ServiceCard 

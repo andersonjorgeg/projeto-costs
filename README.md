@@ -27,6 +27,7 @@ Projeto foi desenvolvido com as seguintes tecnologias
 - instale as dependências com `npm install` no terminal
 - Inicie o servidor com `npm start` no terminal
 - Acesse o  `localhost:3000` do seu navegador
+- inicie o backend com `npm run backend`no terminal para simular o backend 
 
 ---
 
