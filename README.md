@@ -32,4 +32,4 @@ Projeto foi desenvolvido com as seguintes tecnologias
 ---
 
 
-criado por Anderson Jorge,  em AINDA EM ANDAMENTO de 2021.
+criado por Anderson Jorge,  em Novembro de 2021.
